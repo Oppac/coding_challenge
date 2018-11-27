@@ -1,4 +1,4 @@
-# coding_challenge
+# coding_challenges
 
 By the Coding Train
 
