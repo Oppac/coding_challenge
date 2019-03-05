@@ -1,12 +1,10 @@
 #include <SFML/Graphics.hpp>
-
+#include <iostream>
 #include "snake.h"
 
 int main()
 {
   sf::RenderWindow window(sf::VideoMode(800, 800), "Snake", sf::Style::Close);
-  window.setFramerateLimit(60);
-
   Snake *the_snake = new Snake(&window);
 
   while (window.isOpen())
@@ -20,10 +18,10 @@ int main()
       }
     }
 
-    the_snake->move_snake();
-
     window.clear(sf::Color::Black);
-    window.draw(the_snake->show_snake());
+    the_snake->move_snake();
+    the_snake->get_body().move(the_snake->get_x_pos(),the_snake->get_y_pos());
+    window.draw(the_snake->get_body());
     window.display();
   }
 

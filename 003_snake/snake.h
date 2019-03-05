@@ -10,8 +10,10 @@ class Snake
 public:
 
   Snake(sf::RenderWindow *);
+  int get_x_pos();
+  int get_y_pos();
 
-  sf::RectangleShape show_snake();
+  sf::RectangleShape get_body();
   void move_snake();
   void print_pos();
 

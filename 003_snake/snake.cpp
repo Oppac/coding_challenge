@@ -8,13 +8,25 @@ Snake::Snake(sf::RenderWindow *window)
   x_speed = 16;
   y_speed = 0;
 
-}
-
-sf::RectangleShape Snake::show_snake()
-{
   sf::RectangleShape rectangle(sf::Vector2f(x_pos, y_pos));
   rectangle.setSize(sf::Vector2f(16, 16));
-  return rectangle;
+  body = rectangle;
+
+}
+
+int Snake::get_x_pos()
+{
+  return x_pos;
+}
+
+int Snake::get_y_pos()
+{
+  return y_pos;
+}
+
+sf::RectangleShape Snake::get_body()
+{
+  return body;
 }
 
 void Snake::move_snake()
