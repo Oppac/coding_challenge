@@ -1,20 +1,16 @@
 #ifndef SNAKE_H_
 #define SNAKE_H_
 
-#include <iostream>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Snake
 {
 
 public:
-
-  Snake(sf::RenderWindow *);
-  int get_x_pos();
-  int get_y_pos();
+  Snake(sf::RenderWindow *window);
 
   void draw_snake();
-  sf::RectangleShape get_body();
   void move_snake();
   void print_pos();
 

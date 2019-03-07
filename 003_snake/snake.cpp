@@ -14,21 +14,6 @@ Snake::Snake(sf::RenderWindow *window)
 
 }
 
-int Snake::get_x_pos()
-{
-  return x_pos;
-}
-
-int Snake::get_y_pos()
-{
-  return y_pos;
-}
-
-sf::RectangleShape Snake::get_body()
-{
-  return body;
-}
-
 void Snake::draw_snake()
 {
   screen->draw(body);
