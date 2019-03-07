@@ -13,6 +13,7 @@ public:
   int get_x_pos();
   int get_y_pos();
 
+  void draw_snake();
   sf::RectangleShape get_body();
   void move_snake();
   void print_pos();

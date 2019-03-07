@@ -29,10 +29,23 @@ sf::RectangleShape Snake::get_body()
   return body;
 }
 
+void Snake::draw_snake()
+{
+  screen->draw(body);
+}
+
 void Snake::move_snake()
 {
-  if (x_pos < 800) { x_pos += x_speed; }
-  else { x_pos = 0; }
+  if (x_pos < 800)
+  {
+    x_pos += x_speed;
+    body.move(x_speed, y_speed);
+  }
+  else
+  {
+    x_pos = 0;
+    body.setPosition(x_pos, y_pos);
+  }
   //y_pos += y_speed;
 }
 

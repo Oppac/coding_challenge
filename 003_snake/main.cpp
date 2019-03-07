@@ -9,6 +9,10 @@ int main()
 
   while (window.isOpen())
   {
+
+    window.clear(sf::Color::Black);
+    the_snake->draw_snake();
+
     sf::Event event;
     while (window.pollEvent(event))
     {
@@ -18,11 +22,10 @@ int main()
       }
     }
 
-    window.clear(sf::Color::Black);
     the_snake->move_snake();
-    the_snake->get_body().move(the_snake->get_x_pos(),the_snake->get_y_pos());
-    window.draw(the_snake->get_body());
+
     window.display();
+    window.setFramerateLimit(60);
   }
 
   delete the_snake;
