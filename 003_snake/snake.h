@@ -25,6 +25,7 @@ private:
   int speed;
   sf::Vector2<int> direction;
   sf::RectangleShape body;
+  sf::Color color;
 
 };
 

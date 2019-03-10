@@ -1,17 +1,17 @@
 #include "snake.h"
 
-const int INIT_POS = 400;
-
 Snake::Snake(sf::RenderWindow *window)
 {
   screen = window;
-  x_pos = INIT_POS;
-  y_pos = INIT_POS;
+  color = sf::Color::Green;
+  x_pos = screen->getSize().x / 2;
+  y_pos = screen->getSize().y / 2;
   speed = 6;
-  direction.x = INIT_POS; direction.y = INIT_POS;
+  direction.x = x_pos; direction.y = y_pos;
 
-  sf::RectangleShape rectangle(sf::Vector2f(INIT_POS, INIT_POS));
+  sf::RectangleShape rectangle(sf::Vector2f(x_pos, y_pos));
   rectangle.setSize(sf::Vector2f(16, 16));
+  rectangle.setFillColor(color);
   body = rectangle;
 
 }
@@ -33,7 +33,8 @@ void Snake::move_snake()
   y_pos += direction.y;
   body.move(direction.x , direction.y);
 
-  if ((x_pos < 0) || (x_pos > 784) || (y_pos < 0) || (y_pos > 784))
+  if ((x_pos < 0) || (x_pos > (screen->getSize().x - 15)) ||
+   (y_pos < 0) || (y_pos > (screen->getSize().y - 15)))
   {
      game_over();
   }
@@ -41,8 +42,8 @@ void Snake::move_snake()
 
 void Snake::game_over()
 {
-  x_pos = INIT_POS;
-  y_pos = INIT_POS;
+  x_pos = screen->getSize().x / 2;
+  y_pos = screen->getSize().y / 2;
   body.setPosition(x_pos, y_pos);
 }
 

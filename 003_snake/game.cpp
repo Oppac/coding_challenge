@@ -12,11 +12,12 @@ void Game::start()
 
 void Game::game_loop()
 {
-
+  Food *food = new Food(screen);
   while (screen->isOpen())
   {
 
     screen->clear(sf::Color::Black);
+    food->draw_food();
     snake.draw_snake();
 
     sf::Event event;
@@ -38,7 +39,7 @@ void Game::game_loop()
     }
 
     snake.move_snake();
-    snake.print_pos();
+    //snake.print_pos();
     screen->display();
     screen->setFramerateLimit(60);
   }
