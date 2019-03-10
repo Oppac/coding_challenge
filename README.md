@@ -1,5 +1,5 @@
 # coding_challenges
 
-By the Coding Train
+Inspired by the Coding Train
 
-Challenge #5 --> See Python Invader repo
+Challenge #3 --> Snake game (SFML)
