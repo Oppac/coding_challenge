@@ -10,6 +10,7 @@ class Snake
 public:
   Snake(sf::RenderWindow *window);
 
+  sf::RectangleShape snake_body();
   void draw_snake();
   void move_snake();
   void new_direction(sf::Vector2<int> dir);
@@ -20,9 +21,8 @@ private:
 
   sf::RenderWindow *screen;
 
-  int x_pos;
-  int y_pos;
   int speed;
+  sf::Vector2<int> position;
   sf::Vector2<int> direction;
   sf::RectangleShape body;
   sf::Color color;

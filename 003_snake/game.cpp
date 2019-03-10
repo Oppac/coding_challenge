@@ -40,6 +40,12 @@ void Game::game_loop()
 
     snake.move_snake();
     //snake.print_pos();
+
+    if (snake.snake_body().getGlobalBounds().intersects(food->food_rect().getGlobalBounds()))
+    {
+      food->new_food_pos();
+    }
+
     screen->display();
     screen->setFramerateLimit(60);
   }

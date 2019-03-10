@@ -2,22 +2,27 @@
 
 Snake::Snake(sf::RenderWindow *window)
 {
+  speed = 6;
   screen = window;
   color = sf::Color::Green;
-  x_pos = screen->getSize().x / 2;
-  y_pos = screen->getSize().y / 2;
-  speed = 6;
-  direction.x = x_pos; direction.y = y_pos;
+  position = sf::Vector2<int>(screen->getSize().x / 2, screen->getSize().y / 2);
+  direction.x = 0; direction.y = 0;
 
-  sf::RectangleShape rectangle(sf::Vector2f(x_pos, y_pos));
+  sf::RectangleShape rectangle(sf::Vector2f(position.x, position.y));
   rectangle.setSize(sf::Vector2f(16, 16));
   rectangle.setFillColor(color);
   body = rectangle;
 
 }
 
+sf::RectangleShape Snake::snake_body()
+{
+  return body;
+}
+
 void Snake::draw_snake()
 {
+  body.setPosition(position.x, position.y);
   screen->draw(body);
 }
 
@@ -29,12 +34,11 @@ void Snake::new_direction(sf::Vector2<int> dir)
 
 void Snake::move_snake()
 {
-  x_pos += direction.x;
-  y_pos += direction.y;
-  body.move(direction.x , direction.y);
+  position.x += direction.x;
+  position.y += direction.y;
 
-  if ((x_pos < 0) || (x_pos > (screen->getSize().x - 15)) ||
-   (y_pos < 0) || (y_pos > (screen->getSize().y - 15)))
+  if ((position.x < 0) || (position.x > (screen->getSize().x - 15)) ||
+   (position.y < 0) || (position.y > (screen->getSize().y - 15)))
   {
      game_over();
   }
@@ -42,13 +46,12 @@ void Snake::move_snake()
 
 void Snake::game_over()
 {
-  x_pos = screen->getSize().x / 2;
-  y_pos = screen->getSize().y / 2;
-  body.setPosition(x_pos, y_pos);
+  position.x = screen->getSize().x / 2;
+  position.y = screen->getSize().y / 2;
 }
 
 void Snake::print_pos()
 {
-  std::cout << x_pos << std::endl;
-  std::cout << y_pos << std::endl;
+  std::cout << position.x << std::endl;
+  std::cout << position.y << std::endl;
 }
