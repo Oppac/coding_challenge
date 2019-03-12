@@ -7,26 +7,26 @@ Snake::Snake(sf::RenderWindow *window)
   color_body = sf::Color::Green;
   color_head = sf::Color::Red;
   snake_length = 1;
-  positions.push(sf::Vector2<int>(screen->getSize().x / 2, screen->getSize().y / 2));
+  position = sf::Vector2<int>(screen->getSize().x / 2, screen->getSize().y / 2);
   direction.x = 0; direction.y = 0;
 
-  sf::RectangleShape rectangle(sf::Vector2f(positions.front().x, positions.front().y));
+  sf::RectangleShape rectangle(sf::Vector2f(position.x, position.y));
   rectangle.setSize(sf::Vector2f(16, 16));
   rectangle.setFillColor(color_body);
-  body.push_back(rectangle);
+  body = rectangle;
 }
 
 sf::RectangleShape Snake::snake_body()
 {
-  return body[0];
+  return body;
 }
 
 void Snake::draw_snake()
 {
   for (int i = 0; i < snake_length; ++i)
   {
-    body[0].setPosition(positions.front().x, positions.front().y);
-    screen->draw(body[0]);
+    body.setPosition(position.x, position.y);
+    screen->draw(body);
   }
 }
 
@@ -38,18 +38,30 @@ void Snake::new_direction(sf::Vector2<int> dir)
 
 void Snake::move_snake()
 {
-  positions.front().x += direction.x;
-  positions.front().y += direction.y;
+  position.x += direction.x;
+  position.y += direction.y;
 
-  if ((positions.front().x < 0) || (positions.front().x > (screen->getSize().x - 15)) ||
-   (positions.front().y < 0) || (positions.front().y > (screen->getSize().y - 15)))
+  if ((position.x < 0) || (position.x > (screen->getSize().x - 15)) ||
+   (position.y < 0) || (position.y > (screen->getSize().y - 15)))
   {
      game_over();
   }
 }
 
+void Snake::extend_body()
+{
+  snake_length++;
+//  sf::Vector2f  = sf::Vector2f(body[snake_length-1].getPosition());
+  //positions.push_back(static_cast<sf::Vector2<int>>(pos));
+  //sf::RectangleShape rectangle(pos);
+  //rectangle.setSize(sf::Vector2f(16, 16));
+  //rectangle.setFillColor(color_body);
+  //body.push_back(rectangle);
+}
+
 void Snake::game_over()
 {
-  positions.front().x = screen->getSize().x / 2;
-  positions.front().y = screen->getSize().y / 2;
+  snake_length = 1;
+  position.x = screen->getSize().x / 2;
+  position.y = screen->getSize().y / 2;
 }

@@ -5,11 +5,6 @@ Game::Game(sf::RenderWindow *window) : snake(window)
   screen = window;
 }
 
-void Game::start()
-{
-  game_loop();
-}
-
 void Game::game_loop()
 {
   Food *food = new Food(screen);
@@ -43,6 +38,7 @@ void Game::game_loop()
     if (snake.snake_body().getGlobalBounds().intersects(food->food_rect().getGlobalBounds()))
     {
       food->new_food_pos();
+      snake.extend_body();
     }
 
     screen->display();

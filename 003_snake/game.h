@@ -9,12 +9,9 @@ class Game
 {
 public:
   Game(sf::RenderWindow *window);
-
-  void start();
-
-private:
   void game_loop();
 
+private:
   Snake snake;
   sf::RenderWindow *screen;
 
