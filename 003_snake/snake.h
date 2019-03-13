@@ -2,7 +2,7 @@
 #define SNAKE_H_
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
+#include <vector>
 #include <list>
 
 class Snake
