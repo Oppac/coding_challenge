@@ -17,18 +17,21 @@ public:
   void new_direction(sf::Vector2<int> dir);
   void game_over();
   void extend_body();
+  sf::RectangleShape new_rect(bool is_head);
 
 private:
 
   sf::RenderWindow *screen;
 
   int speed;
+  int body_size;
   int snake_length;
   sf::Vector2<int> direction;
   std::vector<sf::Vector2<int>> positions;
   std::vector<sf::RectangleShape> body;
   sf::Color color_body;
   sf::Color color_head;
+  int frame;
 
 };
 

@@ -3,6 +3,8 @@
 Snake::Snake(sf::RenderWindow *window)
 {
   speed = 6;
+  body_size = 30;
+  frame = 0;
   screen = window;
   color_body = sf::Color::Green;
   color_head = sf::Color::Red;
@@ -10,11 +12,7 @@ Snake::Snake(sf::RenderWindow *window)
 
   positions.push_back(sf::Vector2<int>(screen->getSize().x / 2, screen->getSize().y / 2));
   direction.x = 0; direction.y = 0;
-
-  sf::RectangleShape rectangle(sf::Vector2f(positions[0].x, positions[0].y));
-  rectangle.setSize(sf::Vector2f(16, 16));
-  rectangle.setFillColor(color_head);
-  body.push_back(rectangle);
+  body.push_back(new_rect(true));
 }
 
 sf::RectangleShape Snake::snake_head()
@@ -33,40 +31,60 @@ void Snake::draw_snake()
 
 void Snake::new_direction(sf::Vector2<int> dir)
 {
-  direction.x = dir.x * speed;
-  direction.y = dir.y * speed;
+  direction.x = dir.x;
+  direction.y = dir.y;
 }
 
 void Snake::move_snake()
 {
-  for (int i = snake_length; i > 0; --i)
+  frame++;
+  if (frame == speed)
   {
-    positions[i].x = positions[i-1].x;
-    positions[i].y = positions[i-1].y;
+    for (int i = snake_length; i > 0; --i)
+    {
+      positions[i].x = positions[i-1].x;
+      positions[i].y = positions[i-1].y;
+    }
+    frame = 0;
   }
 
-  positions[0].x += direction.x;
-  positions[0].y += direction.y;
+  positions[0].x += direction.x * speed;
+  positions[0].y += direction.y * speed;
 
-  if ((positions[0].x < 0) || (positions[0].x > (screen->getSize().x - 15)) ||
-   (positions[0].y < 0) || (positions[0].y > (screen->getSize().y - 15)))
+  if ((positions[0].x < 0) || (positions[0].x > (screen->getSize().x - (body_size-1))) ||
+   (positions[0].y < 0) || (positions[0].y > (screen->getSize().y - (body_size-1))))
   {
      game_over();
+  }
+
+  for (int i = 4; i < snake_length; ++i)
+  {
+    if (body[0].getGlobalBounds().intersects(body[i].getGlobalBounds()))
+    {
+      game_over();
+    }
   }
 }
 
 void Snake::extend_body()
 {
   snake_length++;
+  body.push_back(new_rect(false));
+}
+
+sf::RectangleShape Snake::new_rect(bool is_head)
+{
   sf::RectangleShape rectangle(sf::Vector2f(positions[0].x, positions[0].y));
-  rectangle.setSize(sf::Vector2f(16, 16));
-  rectangle.setFillColor(color_body);
-  body.push_back(rectangle);
+  rectangle.setSize(sf::Vector2f(body_size, body_size));
+  if (is_head) { rectangle.setFillColor(color_head); }
+  else { rectangle.setFillColor(color_body); }
+  return rectangle;
 }
 
 void Snake::game_over()
 {
   snake_length = 1;
+  direction.x = 0; direction.y = 0;
   positions[0].x = screen->getSize().x / 2;
   positions[0].y = screen->getSize().y / 2;
 }

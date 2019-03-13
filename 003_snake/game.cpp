@@ -21,10 +21,10 @@ void Game::game_loop()
       if (event.type == sf::Event::KeyPressed)
       {
         sf::Vector2<int> dir;
-        if (event.key.code == sf::Keyboard::Up) { dir.x = 0; dir.y = -1; }
-        else if (event.key.code == sf::Keyboard::Down) { dir.x = 0; dir.y = 1; }
-        else if (event.key.code == sf::Keyboard::Right) { dir.x = 1; dir.y = 0; }
-        else if (event.key.code == sf::Keyboard::Left) { dir.x = -1; dir.y = 0; }
+        if (event.key.code == sf::Keyboard::Up) { dir.x = 0; dir.y = -1; snake.extend_body();}
+        else if (event.key.code == sf::Keyboard::Down) { dir.x = 0; dir.y = 1; snake.extend_body();}
+        else if (event.key.code == sf::Keyboard::Right) { dir.x = 1; dir.y = 0; snake.extend_body();}
+        else if (event.key.code == sf::Keyboard::Left) { dir.x = -1; dir.y = 0; snake.extend_body();}
         snake.new_direction(dir);
       }
       if (event.type == sf::Event::Closed)

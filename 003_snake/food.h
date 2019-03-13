@@ -17,6 +17,7 @@ private:
   sf::Vector2<int> position;
   sf::RectangleShape food;
   sf::Color color;
+  int food_size;
 
   std::mt19937 gen;
   std::uniform_int_distribution<int> disx;
