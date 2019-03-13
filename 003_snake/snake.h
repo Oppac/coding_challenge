@@ -2,7 +2,8 @@
 #define SNAKE_H_
 
 #include <SFML/Graphics.hpp>
-#include <vector>
+#include <iostream>
+#include <list>
 
 class Snake
 {
@@ -10,7 +11,7 @@ class Snake
 public:
   Snake(sf::RenderWindow *window);
 
-  sf::RectangleShape snake_body();
+  sf::RectangleShape snake_head();
   void draw_snake();
   void move_snake();
   void new_direction(sf::Vector2<int> dir);
@@ -23,9 +24,9 @@ private:
 
   int speed;
   int snake_length;
-  sf::Vector2<int> position;
   sf::Vector2<int> direction;
-  sf::RectangleShape body;
+  std::vector<sf::Vector2<int>> positions;
+  std::vector<sf::RectangleShape> body;
   sf::Color color_body;
   sf::Color color_head;
 

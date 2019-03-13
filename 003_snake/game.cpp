@@ -35,7 +35,7 @@ void Game::game_loop()
 
     snake.move_snake();
 
-    if (snake.snake_body().getGlobalBounds().intersects(food->food_rect().getGlobalBounds()))
+    if (snake.snake_head().getGlobalBounds().intersects(food->food_rect().getGlobalBounds()))
     {
       food->new_food_pos();
       snake.extend_body();

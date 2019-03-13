@@ -7,26 +7,27 @@ Snake::Snake(sf::RenderWindow *window)
   color_body = sf::Color::Green;
   color_head = sf::Color::Red;
   snake_length = 1;
-  position = sf::Vector2<int>(screen->getSize().x / 2, screen->getSize().y / 2);
+
+  positions.push_back(sf::Vector2<int>(screen->getSize().x / 2, screen->getSize().y / 2));
   direction.x = 0; direction.y = 0;
 
-  sf::RectangleShape rectangle(sf::Vector2f(position.x, position.y));
+  sf::RectangleShape rectangle(sf::Vector2f(positions[0].x, positions[0].y));
   rectangle.setSize(sf::Vector2f(16, 16));
-  rectangle.setFillColor(color_body);
-  body = rectangle;
+  rectangle.setFillColor(color_head);
+  body.push_back(rectangle);
 }
 
-sf::RectangleShape Snake::snake_body()
+sf::RectangleShape Snake::snake_head()
 {
-  return body;
+  return body[0];
 }
 
 void Snake::draw_snake()
 {
   for (int i = 0; i < snake_length; ++i)
   {
-    body.setPosition(position.x, position.y);
-    screen->draw(body);
+    body[i].setPosition(positions[i].x, positions[i].y);
+    screen->draw(body[i]);
   }
 }
 
@@ -38,11 +39,17 @@ void Snake::new_direction(sf::Vector2<int> dir)
 
 void Snake::move_snake()
 {
-  position.x += direction.x;
-  position.y += direction.y;
+  for (int i = snake_length; i > 0; --i)
+  {
+    positions[i].x = positions[i-1].x;
+    positions[i].y = positions[i-1].y;
+  }
 
-  if ((position.x < 0) || (position.x > (screen->getSize().x - 15)) ||
-   (position.y < 0) || (position.y > (screen->getSize().y - 15)))
+  positions[0].x += direction.x;
+  positions[0].y += direction.y;
+
+  if ((positions[0].x < 0) || (positions[0].x > (screen->getSize().x - 15)) ||
+   (positions[0].y < 0) || (positions[0].y > (screen->getSize().y - 15)))
   {
      game_over();
   }
@@ -51,17 +58,15 @@ void Snake::move_snake()
 void Snake::extend_body()
 {
   snake_length++;
-//  sf::Vector2f  = sf::Vector2f(body[snake_length-1].getPosition());
-  //positions.push_back(static_cast<sf::Vector2<int>>(pos));
-  //sf::RectangleShape rectangle(pos);
-  //rectangle.setSize(sf::Vector2f(16, 16));
-  //rectangle.setFillColor(color_body);
-  //body.push_back(rectangle);
+  sf::RectangleShape rectangle(sf::Vector2f(positions[0].x, positions[0].y));
+  rectangle.setSize(sf::Vector2f(16, 16));
+  rectangle.setFillColor(color_body);
+  body.push_back(rectangle);
 }
 
 void Snake::game_over()
 {
   snake_length = 1;
-  position.x = screen->getSize().x / 2;
-  position.y = screen->getSize().y / 2;
+  positions[0].x = screen->getSize().x / 2;
+  positions[0].y = screen->getSize().y / 2;
 }
