@@ -2,7 +2,7 @@
 
 Snake::Snake(sf::RenderWindow *window)
 {
-  speed = 6;
+  speed = 8;
   body_size = 30;
   frame = 0;
   screen = window;
@@ -22,7 +22,7 @@ sf::RectangleShape Snake::snake_head()
 
 void Snake::draw_snake()
 {
-  for (int i = 0; i < snake_length; ++i)
+  for (int i = snake_length-1; i >= 0; --i)
   {
     body[i].setPosition(positions[i].x, positions[i].y);
     screen->draw(body[i]);
@@ -38,7 +38,7 @@ void Snake::new_direction(sf::Vector2<int> dir)
 void Snake::move_snake()
 {
   frame++;
-  if (frame == speed)
+  if (frame == speed/2)
   {
     for (int i = snake_length; i > 0; --i)
     {
@@ -57,7 +57,7 @@ void Snake::move_snake()
      game_over();
   }
 
-  for (int i = 4; i < snake_length; ++i)
+  for (int i = 3; i < snake_length; ++i)
   {
     if (body[0].getGlobalBounds().intersects(body[i].getGlobalBounds()))
     {
@@ -70,6 +70,7 @@ void Snake::extend_body()
 {
   snake_length++;
   body.push_back(new_rect(false));
+  positions.push_back(positions[-1]);
 }
 
 sf::RectangleShape Snake::new_rect(bool is_head)
