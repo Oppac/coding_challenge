@@ -1,5 +1,6 @@
-import string
 import random
+import string
+import time
 
 LETTERS = " " + string.ascii_letters
 
@@ -20,7 +21,7 @@ def gen_new_pop(pop_nb, mutation, pop):
 
         for l in range(len(child)):
             if random.random() < mutation:
-                child[:l] + random.choice(LETTERS) + child[l+1:]
+                child = child[:l] + random.choice(LETTERS) + child[l+1:]
         new_pop.append(child)
     return new_pop
 
@@ -39,9 +40,9 @@ def check_solution(target_str, pop):
     return False
 
 def main():
-    target_str = "Jade is cute"
+    target_str = "Jade is really cute even if to be or not to be is the question"
     pop_nb = 10000
-    mutation_rate = 0.1
+    mutation_rate = 0.001
 
     init_pop = [''.join(random.choice(LETTERS) for i in range(len(target_str)))
                 for _ in range(pop_nb)]
@@ -61,5 +62,6 @@ def main():
         i += 1
 
 
-
+stime = time.time()
 main()
+print(f"--- %{time.time() - stime} seconds ---")
