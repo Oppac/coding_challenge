@@ -61,7 +61,7 @@ def main():
         if check_solution(target_str, pop): break
         i += 1
 
-
-stime = time.time()
-main()
-print(f"--- %{time.time() - stime} seconds ---")
+if __name__ == '__main__':
+    stime = time.time()
+    main()
+    print(f"--- %{time.time() - stime} seconds ---")
